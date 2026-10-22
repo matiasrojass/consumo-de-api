@@ -1,0 +1,117 @@
+---
+const titulo = Astro.props.titulo;
+const precio = Astro.props.precio;
+const categoria = Astro.props.categoria;
+const imagen = Astro.props.imagen;
+const rating = Astro.props.rating;
+---
+
+<article
+  class="tarjeta"
+  data-categoria={categoria}
+  data-busqueda={titulo + " " + categoria}
+>
+  <img src={imagen} alt={titulo} />
+  <span class="precio">${precio}</span>
+  <h2>{titulo}</h2>
+  <p class="categoria">{categoria}</p>
+  <p class="rating">★ {rating}</p>
+</article>
+
+<style>
+  .tarjeta {
+    --tinte: #e4e8ee;
+    position: relative;
+    background-color: var(--tinte);
+    color: #14213d;
+    border-radius: 6px;
+    padding: 16px 16px 18px 16px;
+  }
+
+  .tarjeta[data-categoria="beauty"] {
+    --tinte: #f9d5e0;
+  }
+
+  .tarjeta[data-categoria="fragrances"] {
+    --tinte: #dcd4f4;
+  }
+
+  .tarjeta[data-categoria="furniture"] {
+    --tinte: #d4e6cf;
+  }
+
+  .tarjeta[data-categoria="groceries"] {
+    --tinte: #ffe0b0;
+  }
+
+  .tarjeta img {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+  }
+
+  .precio {
+    position: absolute;
+    top: 14px;
+    left: 0;
+    background-color: #ffd23f;
+    color: #14213d;
+    font-weight: 800;
+    font-size: 1.05rem;
+    padding: 4px 12px 4px 24px;
+    border-radius: 0 6px 6px 0;
+  }
+
+  .precio::before {
+    content: "";
+    position: absolute;
+    left: 9px;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    margin-top: -3.5px;
+    border-radius: 50%;
+    background-color: var(--tinte);
+  }
+
+  .tarjeta h2 {
+    font-size: 1.05rem;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 12px 0 4px 0;
+  }
+
+  .categoria {
+    color: #3d4a6b;
+    font-size: 0.9rem;
+    text-transform: capitalize;
+    margin: 0;
+  }
+
+  .rating {
+    font-size: 0.9rem;
+    font-weight: 600;
+    margin: 8px 0 0 0;
+  }
+
+  @media (max-width: 600px) {
+    .tarjeta {
+      padding: 12px 12px 14px 12px;
+    }
+
+    .tarjeta img {
+      height: 130px;
+    }
+
+    .precio {
+      font-size: 0.9rem;
+      top: 10px;
+    }
+
+    .tarjeta h2 {
+      font-size: 0.95rem;
+    }
+  }
+</style>

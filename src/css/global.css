@@ -1,0 +1,90 @@
+
+  body {
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    background-color: #eef1f6;
+    color: #14213d;
+    margin: 0;
+  }
+
+  .contenedor {
+    max-width: 1100px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+
+  .cabecera {
+    background-color: #2a44c8;
+    color: #ffffff;
+    padding-top: 36px;
+    padding-bottom: 32px;
+  }
+
+  h1 {
+    font-size: clamp(2rem, 6vw, 3.6rem);
+    font-weight: 800;
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  .conteo {
+    color: #dce3ff;
+    margin: 8px 0 22px 0;
+  }
+
+  #buscador {
+    display: block;
+    width: 100%;
+    max-width: 520px;
+    padding: 14px 20px;
+    font-family: inherit;
+    font-size: 1rem;
+    color: #14213d;
+    background-color: #ffffff;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    box-sizing: border-box;
+  }
+
+  #buscador:focus-visible {
+    outline: 3px solid #ffd23f;
+    outline-offset: 2px;
+  }
+
+  .oculto {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+
+  #sin-resultados {
+    display: none;
+    padding-top: 28px;
+    font-size: 1.05rem;
+  }
+
+  .grilla {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 16px;
+    padding-top: 28px;
+    padding-bottom: 48px;
+  }
+
+  @media (max-width: 600px) {
+    .contenedor {
+      padding-left: 12px;
+      padding-right: 12px;
+    }
+
+    .grilla {
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+  }

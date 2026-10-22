@@ -1,16 +1,100 @@
 ---
+import TarjetaProducto from "../components/TarjetaProducto.astro";
+import "../css/global.css";
+
+const respuesta = await fetch("https://dummyjson.com/products");
+const datos = await respuesta.json();
+
+const productos = [];
+
+for (let i = 0; i < datos.products.length; i++) {
+  const producto = datos.products[i];
+
+  const productoLimpio = {
+    id: producto.id,
+    titulo: producto.title,
+    descripcion: producto.description,
+    precio: producto.price,
+    categoria: producto.category,
+    imagen: producto.thumbnail,
+    rating: producto.rating
+  };
+
+  productos.push(productoLimpio);
+}
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Catálogo de productos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="cabecera">
+      <div class="contenedor">
+        <h1>Catálogo de productos</h1>
+        <p class="conteo">{productos.length} productos disponibles</p>
+
+        <label for="buscador" class="oculto">Buscar productos</label>
+        <input
+          type="text"
+          id="buscador"
+          placeholder="Busca por nombre o categoría"
+        />
+      </div>
+    </header>
+
+    <p id="sin-resultados" class="contenedor">
+      No encontramos productos con esa búsqueda. Prueba con otro nombre o categoría.
+    </p>
+
+    <main class="grilla contenedor">
+      {productos.map(function (producto) {
+        return (
+          <TarjetaProducto
+            titulo={producto.titulo}
+            precio={producto.precio}
+            categoria={producto.categoria}
+            imagen={producto.imagen}
+            rating={producto.rating}
+          />
+        );
+      })}
+    </main>
+
+    <script>
+      const buscador = document.getElementById("buscador");
+      const tarjetas = document.getElementsByClassName("tarjeta");
+      const mensaje = document.getElementById("sin-resultados");
+
+      buscador.addEventListener("input", function () {
+        const texto = buscador.value.toLowerCase();
+        let visibles = 0;
+
+        for (let i = 0; i < tarjetas.length; i++) {
+          const contenido = tarjetas[i].getAttribute("data-busqueda").toLowerCase();
+
+          if (contenido.includes(texto)) {
+            tarjetas[i].style.display = "block";
+            visibles = visibles + 1;
+          } else {
+            tarjetas[i].style.display = "none";
+          }
+        }
+
+        if (visibles === 0) {
+          mensaje.style.display = "block";
+        } else {
+          mensaje.style.display = "none";
+        }
+      });
+    </script>
+  </body>
 </html>
